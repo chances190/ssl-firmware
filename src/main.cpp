@@ -99,7 +99,7 @@ int main() {
     // Find the speed to navigate robot.
     if (recvType == msgType::SSL_SPEED) {
       // Check movement lock
-      motion.moveIsLocked(radio_recv.robotMoveIsLocked());
+      motion.setMoveIsLocked(radio_recv.robotMoveIsLocked());
       // Update desired speed
       navigation.update(motionSpeed, radio_recv.getVectorSpeed());
     } else if (recvType == msgType::POSITION) {

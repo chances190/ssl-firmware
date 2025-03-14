@@ -316,11 +316,11 @@ void MotionControl::validateNavigation() {
   _kinematics->validateSpeeds(v_test);
 }
 
-void MotionControl::moveIsLocked(bool robotMoveIsLocked) {
-  _M1.motorIsLocked(robotMoveIsLocked);
-  _M2.motorIsLocked(robotMoveIsLocked);
-  _M3.motorIsLocked(robotMoveIsLocked);
-  _M4.motorIsLocked(robotMoveIsLocked);
+void MotionControl::setMoveIsLocked(bool robotMoveIsLocked) {
+  _M1.setMotorIsLocked(robotMoveIsLocked);
+  _M2.setMotorIsLocked(robotMoveIsLocked);
+  _M3.setMotorIsLocked(robotMoveIsLocked);
+  _M4.setMotorIsLocked(robotMoveIsLocked);
 }
 
 void MotionControl::printMotorsPWM() {

@@ -51,7 +51,7 @@ class PID_Controller {
   void reset();
   void runPWM(double desired_pwm);
   void updateDesiredSpeed(double desired_rad_s);
-  void motorIsLocked(bool robotMoveIsLocked);
+  void setMotorIsLocked(bool robotMoveIsLocked);
   double runPID(double desired_rad_s, MotorType M_TYPE = DIRECTION);
   double runPID_PWM(double desired_pwm);
   int getMotorRst();

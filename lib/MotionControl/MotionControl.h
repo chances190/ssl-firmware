@@ -58,7 +58,7 @@ class MotionControl {
   void printDesiredSpeed(Vector motionSpeed);
   void printDriblerSpeed();
   void validateNavigation();
-  void moveIsLocked(bool robotMoveIsLocked);
+  void setMoveIsLocked(bool robotMoveIsLocked);
 
  private:
   PID_Controller _M1;

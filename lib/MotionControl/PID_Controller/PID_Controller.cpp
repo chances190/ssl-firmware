@@ -274,6 +274,6 @@ void PID_Controller::dribblerConfig() {
   Kd = M5_Kd;
 }
 
-void PID_Controller::motorIsLocked(bool robotMoveIsLocked) {
+void PID_Controller::setMotorIsLocked(bool robotMoveIsLocked) {
   motor_is_locked = robotMoveIsLocked;
 }
