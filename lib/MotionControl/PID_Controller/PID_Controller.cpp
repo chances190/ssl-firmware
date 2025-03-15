@@ -67,7 +67,7 @@ void PID_Controller::update() {
       (!motor_error && utils::timerMillisExpired(_controlTimeout, NRF_NO_MSG_TIME))) {
     stop();
   } else {
-    _pwm = runPID(_desired_rad_s);
+    runPID(_desired_rad_s);
   }
 }
 
@@ -103,7 +103,7 @@ double PID_Controller::runPID(double desired_rad_s, MotorType M_TYPE) {
 
   is_motor_running(desired_rad_s);
   if (!motor_error) {
-    motor.run(pwm);
+    runPWM(pwm);
   } else {
     if (pin_pwm == M1_PWM) {
       Status::send(FAIL, MOTOR_1_LED);
@@ -118,12 +118,16 @@ double PID_Controller::runPID(double desired_rad_s, MotorType M_TYPE) {
     }
     motor.stop();
   }
-  return pwm;
 }
 
 void PID_Controller::runPWM(double desired_pwm) {
-  _pwm = desired_pwm;
-  motor.run(desired_pwm);
+  double MAX_PWM_ALLOWED = (motor_is_locked) ? LOCKED_MAX_PWM_ALLOWED : STD_MAX_PWM_ALLOWED;
+
+  double limited_pwm = std::min(desired_pwm, MAX_PWM_ALLOWED);
+  double limited_pwm = std::max(desired_pwm, -MAX_PWM_ALLOWED);
+
+  _pwm = limited_pwm;
+  motor.run(_pwm);
   _speed_rad_s = enc->getSpeed();
 }
 
@@ -147,11 +151,6 @@ double PID_Controller::adjust_rad_s_to_pwm_pi(double desired_rad_s) {
   _speed_rad_s = enc->getSpeed();
   double adjust_pwm;
   adjust_pwm = pi(desired_rad_s, _speed_rad_s);
-
-  double MAX_PWM_ALLOWED = (motor_is_locked) ? LOCKED_MAX_PWM_ALLOWED : STD_MAX_PWM_ALLOWED;
-
-  adjust_pwm = std::min(adjust_pwm, MAX_PWM_ALLOWED);
-  adjust_pwm = std::max(adjust_pwm, -MAX_PWM_ALLOWED);
 
   return adjust_pwm;
 }

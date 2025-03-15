@@ -1,15 +1,8 @@
 #include "MotionControl.h"
 
+
 MotionControl::MotionControl(Kinematics* kinematics) :
-    _M1(M1_PWM,
-        M1_DIR,
-        M1_RST,
-        M1_MODE,
-        M1_CST,
-        M1_BRK,
-        TIM1,
-        MOTOR_ENCODER_PULSES,
-        2), // sampling time 2ms
+    _M1(M1_PWM, M1_DIR, M1_RST, M1_MODE, M1_CST, M1_BRK, TIM1, MOTOR_ENCODER_PULSES, 2), // sampling time 2ms
     _M2(M2_PWM, M2_DIR, M2_RST, M2_MODE, M2_CST, M2_BRK, TIM2, MOTOR_ENCODER_PULSES, 2),
     _M3(M3_PWM, M3_DIR, M3_RST, M3_MODE, M3_CST, M3_BRK, TIM8, MOTOR_ENCODER_PULSES, 2),
     _M4(M4_PWM, M4_DIR, M4_RST, M4_MODE, M4_CST, M4_BRK, TIM3, MOTOR_ENCODER_PULSES, 2),

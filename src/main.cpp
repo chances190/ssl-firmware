@@ -64,6 +64,7 @@ int main() {
   utils::checkBattery();
 
   motion.init();
+  currentSensor.init();
 
   radio_recv.setup(utils::getRobotId());
   radio_send.setup(utils::getRobotId());
@@ -85,6 +86,8 @@ int main() {
   while (1) {
     // Process Gyroscope
     odometry.processGyro();
+
+    motion.setMoveIsLocked(currentSensor.isMotorLocked());
 
     // New packet?
     bool newPacket = false;
